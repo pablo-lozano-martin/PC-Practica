@@ -1,0 +1,17 @@
+Practica Final PC
+
+Hemos empleado un semáforo, un monitor y un lock para la correcta implementación de la concurrencia en el programa:
+Los tres se utilizan en la clase Servidor, ya que es la zona en la que puede haber más conflicto entre procesos.
+
+-Semáforo:
+	Consiste en un semáforo iniciado a 1 para impedir que dos o más procesos accedan a la lista de ficheros a la vez.
+	Inlcuímos un acquire y release antes y después de cada acceso a esta lista. Más en concreto en fileList(), hasFile(), updateFile(), clientList() y fileInServer().
+
+-Monitor:
+	Empleamos un monitor para controlar la lista de usuarios conectados al sistema. La clase MonitorUsuarios incluye dicha lista, así como las funciones que la actualizan (añadir o eliminar usuario)
+	y las que devuelven información (clientes disponibles, writer de un cliente o nombres de usuarios conectados).
+	
+-Lock:
+	La última herramienta de concurrencia que hemos añadido es un LockTicket. Sirve principalmente para escoger un puerto a la hora de solicitar un fichero.
+	El servidor pasa al oyente del cliente el lock, y este lo emplea para escoger el puerto sin problemas antes de escribir y enviar el MensajeEmision.
+	El lock empleado es, en concreto, un lock ticket. Las llamadas takeLock y releaseLock son las encargadas de mantener el orden entre procesos haciendo que solo pueda acceder uno sólo a la variable del puerto en el servidor.
